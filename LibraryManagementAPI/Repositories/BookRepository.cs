@@ -20,9 +20,7 @@ namespace LibraryManagementAPI.Repositories
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.Where(b =>
-                    b.Title.Contains(searchTerm) ||
-                    b.Author.Contains(searchTerm));
+                query = query.Where(b => b.Title.Contains(searchTerm) || b.Author.Contains(searchTerm));
             }
 
             return await query.ToListAsync();
@@ -42,19 +40,20 @@ namespace LibraryManagementAPI.Repositories
 
         public async Task<Book?> UpdateAsync(int id, Book book)
         {
-            var existingBook = await _context.Books.FindAsync(id);
+            var existingBook = await _context.Books.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (existingBook == null)
             {
+                return null;
 
-                existingBook.Title = book.Title;
-                existingBook.Author = book.Author;
-                existingBook.ISBN = book.ISBN;
-                existingBook.PublishedDate = book.PublishedDate;
-
-                await _context.SaveChangesAsync();
-                return existingBook;
             }
-            return null;
+
+            existingBook.Title = book.Title;
+            existingBook.Author = book.Author;
+            existingBook.ISBN = book.ISBN;
+            existingBook.PublishedDate = book.PublishedDate;
+
+            await _context.SaveChangesAsync();
+            return existingBook;
 
         }
 
@@ -62,7 +61,9 @@ namespace LibraryManagementAPI.Repositories
         {
             var book = await _context.Books.FindAsync(id);
             if (book == null)
+            {
                 return false;
+            }
 
             _context.Books.Remove(book);
             await _context.SaveChangesAsync();

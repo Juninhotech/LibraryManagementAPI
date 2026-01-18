@@ -21,7 +21,7 @@ namespace LibraryManagementAPI.Services
             _configuration = configuration;
         }
 
-        public async Task<AuthResponseDto?> RegisterAsync(RegisterDto registerDto)
+        public async Task<RegResponseDto?> RegisterAsync(RegisterDto registerDto)
         {
             if (await _context.Users.AnyAsync(u => u.Username == registerDto.Username || u.Email == registerDto.Email))
                 return null;
@@ -40,9 +40,8 @@ namespace LibraryManagementAPI.Services
 
             var token = GenerateJwtToken(user);
 
-            return new AuthResponseDto
+            return new RegResponseDto
             {
-                Token = token,
                 Username = user.Username,
                 Email = user.Email
             };
@@ -84,7 +83,7 @@ namespace LibraryManagementAPI.Services
                 issuer: jwtSettings["Issuer"],
                 audience: jwtSettings["Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(double.Parse(jwtSettings["ExpiryInHours"])),
+                expires: DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["ExpireMinutes"])),
                 signingCredentials: credentials
             );
 
