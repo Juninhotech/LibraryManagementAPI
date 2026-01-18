@@ -227,7 +227,7 @@ Authorization: Bearer <your-jwt-token>
 
 The database is seeded with 5 programming books:
 1. Clean Code - Robert C. Martin
-2. SQL Transaction - Peter Ogar
+2. The Pragmatic Programmer - Andrew Hunt and David Thomas
 3. Design Patterns - Gang of Four
 4. C# in Depth - Jon Skeet
 5. Refactoring - Martin Fowler
