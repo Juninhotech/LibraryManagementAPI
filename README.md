@@ -34,7 +34,7 @@ A RESTful Web API for managing library books with JWT-based authentication built
 ### 1. Clone the Repository
 
 ```bash
-git clone <https://github.com/Juninhotech/LibraryManagementAPI.git>
+git clone https://github.com/Juninhotech/LibraryManagementAPI.git
 cd LibraryManagementAPI
 ```
 
@@ -278,7 +278,3 @@ The API returns appropriate HTTP status codes:
 - Add unit and integration tests
 - Implement refresh tokens
 - Add API rate limiting
-
-## License
-
-This project is created for educational purposes as part of a C# recruitment exercise.
